@@ -72,7 +72,14 @@ todo = {
 
 	init() {
 		let tmp = localStorage.getItem('todoHomework1')
-		if (tmp) todoItems.innerHTML = tmp
+		if (tmp.trim())
+			todoItems.innerHTML = tmp
+		else {
+			todoItems.innerHTML = initData
+			return
+		}
+		
+		
 		tmp = localStorage.getItem('categoriesHomework1')
 		if (tmp) itemsByCategories.innerHTML = tmp
 		tmp = localStorage.getItem('archiveHomework1')

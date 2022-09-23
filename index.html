@@ -1,104 +1,109 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Todo List on pure JavaScript</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="popup.css">
-  <script defer src="popup.js"></script>
-  <script defer src="todo.js"></script>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Todo List on pure JavaScript</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="popup.css" />
+    <script defer src="popup.js"></script>
+    <script defer src="init.js"></script>
+    <script defer src="utils.js"></script>
+    <script defer src="todo.js"></script>
+    <script defer src="clickHandlers.js"></script>
+  </head>
 
-<body>
-<table cellspacing="0">
-	<thead>
-		<tr>
-			<th width=1></th>
-			<th>Name</th>
-			<th>Created</th>
-			<th>Category</th>
-			<th>Content</th>
-			<th>Dates</th>
-			<th></th>
-			<th><div id="thArchiv" class="pict"></div></th>
-			<th><div id="thTrash" class="pict"></div></th>
-		</tr>
-	</thead>
-	<tbody id="todoItems">
-	</tbody>
-</table>
+  <body>
+    <table cellspacing="0">
+      <thead>
+        <tr>
+          <th width="1"></th>
+          <th>Name</th>
+          <th>Created</th>
+          <th>Category</th>
+          <th>Content</th>
+          <th>Dates</th>
+          <th></th>
+          <th><div id="thArchiv" class="pict"></div></th>
+          <th><div id="thTrash" class="pict"></div></th>
+        </tr>
+      </thead>
+      <tbody id="todoItems"></tbody>
+    </table>
 
-<div id="container">
-	<button id="createNote">Create Note</button>
-</div>
+    <div id="container">
+      <button id="createNote">Create Note</button>
+    </div>
 
-<table cellspacing="0">
-	<thead>
-		<tr>
-			<th width=1></th>
-			<th width='400px'>Note Category</th>
-			<th width=1>Active</th>
-			<th>Archived</th>
-		</tr>
-	</thead>
-	<tbody id="itemsByCategories">
-	</tbody>
-</table>
+    <table cellspacing="0">
+      <thead>
+        <tr>
+          <th width="1"></th>
+          <th width="400px">Note Category</th>
+          <th width="1">Active</th>
+          <th>Archived</th>
+        </tr>
+      </thead>
+      <tbody id="itemsByCategories"></tbody>
+    </table>
 
-<div id="container">
-	<button id="btnArchivedNotes" onclick=''>Archive</button>
-</div>
+    <div id="container">
+      <button id="btnArchivedNotes" onclick="">Archive</button>
+    </div>
 
-<table id="ArchivedNotes" cellspacing="0" hidden>
-	<caption>Archived Notes</caption>
-	<thead>
-		<tr>
-			<th width=1></th>
-			<th>Name</th>
-			<th>Created</th>
-			<th>Category</th>
-			<th>Content</th>
-			<th>Dates</th>
-			<th></th>
-			<th><div id="thUnarchiv" class="pict"></div></th>
-			<th><div id="thTrash" class="pict"></div></th>
-		</tr>
-	</thead>
-	<tbody id="archivedItems">
-	</tbody>
-</table>
+    <table id="ArchivedNotes" cellspacing="0" hidden>
+      <caption>
+        Archived Notes
+      </caption>
+      <thead>
+        <tr>
+          <th width="1"></th>
+          <th>Name</th>
+          <th>Created</th>
+          <th>Category</th>
+          <th>Content</th>
+          <th>Dates</th>
+          <th></th>
+          <th><div id="thUnarchiv" class="pict"></div></th>
+          <th><div id="thTrash" class="pict"></div></th>
+        </tr>
+      </thead>
+      <tbody id="archivedItems"></tbody>
+    </table>
 
-<div class="popup__bg">
-	<form class="popup">
-		<svg class="close-popup" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#2982ff" d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"/></svg>
-	   <label>
-			<input type="text" name="action"/>
-			<div class="label__text">
-				Name
-			</div>
-		</label>
-		<label>
-			<select name="category">
-			  <option value="Task">Task</option>
-			  <option value="RandomThought">Random Thought</option>
-			  <option value="Idea">Idea</option>
-			  <option value="Quote">Quote</option>
-			</select>
-			<div class="label__text">
-				Category
-			</div>
-		</label>
-		<label>
-			<textarea name="content"></textarea>
-			<div class="label__text">
-				Content
-			</div>
-		</label>
-		<button onclick="todo.add({action, category, content})">Save</button>
-	</form>
-</div>
-
-</body>
+    <div class="popup__bg">
+      <form class="popup">
+        <svg
+          class="close-popup"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="#2982ff"
+            d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"
+          />
+        </svg>
+        <label>
+          <input type="text" name="action" />
+          <div class="label__text">Name</div>
+        </label>
+        <label>
+          <select name="category">
+            <option value="Task">Task</option>
+            <option value="RandomThought">Random Thought</option>
+            <option value="Idea">Idea</option>
+            <option value="Quote">Quote</option>
+          </select>
+          <div class="label__text">Category</div>
+        </label>
+        <label>
+          <textarea name="content"></textarea>
+          <div class="label__text">Content</div>
+        </label>
+        <button onclick="todo.add({action, category, content})">Save</button>
+      </form>
+    </div>
+  </body>
 </html>
